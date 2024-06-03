@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .product img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+        }
+
+        .product p {
+            margin: 5px 0;
+        }
+
+        .recommendation {
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Recommendation</h1>
+        <p>Masukkan kriteria Anda dan tekan tombol untuk mendapatkan rekomendasi produk:</p>
+        <input type="text" id="user_input" placeholder="Masukkan kriteria...">
+        <button onclick="getRecommendation()">Dapatkan Rekomendasi</button>
+        <div id="loader" class="loader" style="display: none;"></div>
+        <div id="recommendation"></div>
+    </div>
+
+    <script>
+        function getRecommendation() {
+            var user_input = document.getElementById("user_input").value;
+            var xhr = new XMLHttpRequest();
+            var url = "http://localhost:5000/rekomendasi?kriteria=null&top_n=1&user_input=" + user_input;
+            xhr.open("GET", url, true);
+            document.getElementById("loader").style.display = "inline-block";
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayRecommendation(response);
+                    document.getElementById("loader").style.display = "none";
+                }
+            };
+            xhr.send();
+        }
+
+        function displayRecommendation(data) {
+            var recommendationDiv = document.getElementById("recommendation");
+            var recommendationHTML = "<div class='product'>";
+            recommendationHTML += "<img src='" + data.foto_product + "' alt='Product Image'>";
+            recommendationHTML += "<p><strong>Nama Produk:</strong> " + data.nama_product + "</p>";
+            recommendationHTML += "<p><strong>Harga:</strong> $" + data.harga_product + "</p>";
+            recommendationHTML += "<p><strong>Rating:</strong> " + data.rating_product + "</p>";
+            recommendationHTML += "<p><strong>Diskon:</strong> " + data.diskon_product + "%</p>";
+            recommendationHTML += "<p><strong>Review:</strong> " + data.review_product + "</p>";
+            recommendationHTML += "<p class='recommendation'><strong>Rekomendasi AI:</strong> " + data.recommendation + "</p>";
+            recommendationHTML += "</div>";
+            recommendationDiv.innerHTML = recommendationHTML;
+        }
+    </script>
+</body>
+</html>
