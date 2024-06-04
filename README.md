@@ -69,8 +69,8 @@ Script ini berfungsi untuk memulai Scraping Data dan Aplikasi Flask .
 ### Instalasi
 1. Clone repositori ini: </br>
 ```bash
-git clone <repository-url>
-cd product_recommendation
+git clone https://github.com/michaelchndra/chatbot-rekomendasi.git
+cd chatbot-rekomendasi
 ```
 2. Install Library
 ```bash
