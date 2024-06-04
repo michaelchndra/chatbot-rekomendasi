@@ -9,7 +9,7 @@
   <h3 align="center">AI Rekomendasi Produk</h3>
 
   <p align="center">
-    Chatbot Rekomendasi Produk Dengan Dataset Dari Tokopedia
+     Project Massive Internal Kelompok 1 IBM-Advance AI dari Infinite Learning.
     <br/>
     <br/>
   </p>
@@ -108,6 +108,6 @@ python run.py
 - **Serving**: Aplikasi Flask di app.py melayani permintaan rekomendasi, memuat model terlatih, dan menghasilkan rekomendasi berdasarkan input pengguna.
 - **Frontend**: Halaman HTML di index.html menerima input pengguna, mengirim permintaan ke backend Flask, dan menampilkan hasil rekomendasi.
 
-## Credits
+## Thanks to
 
-**-** [**IBM**](https://www.ibm.com/)<br/>**-** [**InfiniteLearning**](https://www.infinitelearning.id)<br/> **-** [**Cognitive**](https://cognitiveclass.ai)
+[**InfiniteLearning**](https://www.infinitelearning.id)
